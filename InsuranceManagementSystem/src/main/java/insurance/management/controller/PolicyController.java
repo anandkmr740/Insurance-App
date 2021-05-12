@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import insurance.management.dao.PolicyRepository;
 import insurance.management.entity.Policy;
-import insurance.management.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/api")
