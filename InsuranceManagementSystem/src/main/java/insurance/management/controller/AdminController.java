@@ -2,6 +2,8 @@ package insurance.management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import insurance.management.entity.Admin;
 import insurance.management.service.AdminService;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/api")
@@ -57,5 +60,14 @@ public class AdminController {
 		return adminObj;
 	}
 	
+	
+	@GetMapping("login/fetchAdminByEmail/{email}")
+	public Admin viewUserbyEmail(@PathVariable("email") String email) throws Exception {
+		Admin admin = adminService.fetchAdminByEmail(email);
+		if (admin == null) {
+			throw new NotFoundException("NOT FOUND");
+		} else
+			return adminService.fetchAdminByEmail(email);
+	}
 	
 }

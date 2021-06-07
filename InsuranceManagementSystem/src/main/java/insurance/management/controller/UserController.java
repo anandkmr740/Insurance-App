@@ -2,6 +2,8 @@ package insurance.management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import insurance.management.entity.User;
 import insurance.management.service.UserService;
+import javassist.NotFoundException;
 
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
@@ -55,4 +58,14 @@ public class UserController {
 	
 	return userObj;
 }
+	
+	@GetMapping("userLogin/fetchUserByEmail/{email}")
+	public User viewUserbyEmail(@PathVariable("email") String email) throws Exception {
+		User user = userService.fetchUserByEmail(email);
+		if (user == null) {
+			throw new NotFoundException("NOT FOUND");
+		} else
+			return userService.fetchUserByEmail(email);
+	}
+	
 }
